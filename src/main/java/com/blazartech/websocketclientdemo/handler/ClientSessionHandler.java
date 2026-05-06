@@ -18,14 +18,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ClientSessionHandler extends StompSessionHandlerAdapter {
 
-    public ClientSessionHandler() {
-        log.info("creating session handler");
-    }
-
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-
-        log.info("afterConnected");
         
         session.subscribe("/topic/public", new PublicMessageHandler());
 
