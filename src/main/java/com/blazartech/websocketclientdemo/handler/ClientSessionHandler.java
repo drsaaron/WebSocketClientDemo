@@ -5,6 +5,8 @@
 package com.blazartech.websocketclientdemo.handler;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
@@ -18,12 +20,15 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ClientSessionHandler extends StompSessionHandlerAdapter {
 
+    @Autowired
+    private StompFrameHandler privateMessageHandler;
+    
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
         
         session.subscribe("/topic/public", new PublicMessageHandler());
 
-        session.subscribe("/user/queue/private", new PrivateMessageHandler());
+        session.subscribe("/user/queue/private", privateMessageHandler);
 
         log.info("✅ Connected and subscribed");
     }
