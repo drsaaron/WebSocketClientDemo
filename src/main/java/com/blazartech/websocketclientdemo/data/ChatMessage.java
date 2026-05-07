@@ -17,4 +17,6 @@ public class ChatMessage {
     private String sender;
     private String content;
     private String recipient;
+    
+    private String clientMessageId;
 }

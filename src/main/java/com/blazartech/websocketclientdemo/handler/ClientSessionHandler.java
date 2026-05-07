@@ -26,12 +26,15 @@ public class ClientSessionHandler extends StompSessionHandlerAdapter {
     @Autowired
     private StompFrameHandler publicMessageHandler;
     
+    @Autowired
+    private StompFrameHandler deliveryNotificationHandler;
+    
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
         
         session.subscribe("/topic/public", publicMessageHandler);
-
         session.subscribe("/user/queue/private", privateMessageHandler);
+        session.subscribe("/user/queue/receipts", deliveryNotificationHandler);
 
         log.info("✅ Connected and subscribed");
     }
