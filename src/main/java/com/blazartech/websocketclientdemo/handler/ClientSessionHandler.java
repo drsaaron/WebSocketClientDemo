@@ -23,10 +23,13 @@ public class ClientSessionHandler extends StompSessionHandlerAdapter {
     @Autowired
     private StompFrameHandler privateMessageHandler;
     
+    @Autowired
+    private StompFrameHandler publicMessageHandler;
+    
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
         
-        session.subscribe("/topic/public", new PublicMessageHandler());
+        session.subscribe("/topic/public", publicMessageHandler);
 
         session.subscribe("/user/queue/private", privateMessageHandler);
 

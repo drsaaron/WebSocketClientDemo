@@ -4,6 +4,7 @@
  */
 package com.blazartech.websocketclientdemo.config;
 
+import jakarta.annotation.Resource;
 import java.util.Base64;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,14 @@ public class StompSessionConfiguration {
     @Autowired
     private StompSessionHandlerAdapter clientSessionHandler;
     
+    @Resource
+    private String base64Auth;
+    
     @Bean
     public StompSession stompSession() throws Exception {
         String url = "ws://localhost:8700/ws";
 
-        String username = "auditor";
-        String password = "password";
-
         WebSocketHttpHeaders handshakeHeaders = new WebSocketHttpHeaders();
-        String auth = username + ":" + password;
-        String base64Auth = Base64.getEncoder().encodeToString(auth.getBytes());
         handshakeHeaders.add("Authorization", "Basic " + base64Auth);
 //        handshakeHeaders.setBasicAuth(username, password);
         

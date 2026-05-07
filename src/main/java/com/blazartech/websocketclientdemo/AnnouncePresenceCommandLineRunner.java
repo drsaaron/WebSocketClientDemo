@@ -8,6 +8,7 @@ import com.blazartech.websocketclientdemo.data.ChatMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
+@Order(2)
 public class AnnouncePresenceCommandLineRunner implements CommandLineRunner {
 
     @Autowired

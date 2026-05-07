@@ -4,6 +4,7 @@
  */
 package com.blazartech.websocketclientdemo.config;
 
+import jakarta.annotation.Resource;
 import java.io.IOException;
 import java.util.Base64;
 import lombok.extern.slf4j.Slf4j;
@@ -37,14 +38,11 @@ public class RestClientConfiguration {
         
     }
     
+    @Resource
+    private String base64Auth;
+    
     @Bean
     public RestClient restClient() {
-        String username = "auditor";
-        String password = "password";
-
-        String auth = username + ":" + password;
-        String base64Auth = Base64.getEncoder().encodeToString(auth.getBytes());
-        
         return RestClient.builder()
                 .defaultHeader("Authorization", "Basic " + base64Auth)
                 .baseUrl("http://localhost:8700/api/messages")
